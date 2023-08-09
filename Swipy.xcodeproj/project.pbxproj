@@ -13,6 +13,7 @@
 		224D425E2A81698800684D69 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 224D425D2A81698800684D69 /* RealmSwift */; };
 		224D42672A8171C900684D69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224D42662A8171C900684D69 /* SettingsView.swift */; };
 		224D426A2A8176B700684D69 /* SavedImageId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224D42692A8176B700684D69 /* SavedImageId.swift */; };
+		227E0A5A2A842FF6005BE585 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E0A592A842FF6005BE585 /* MessageView.swift */; };
 		227F90292A83A8AD00177CDF /* SettingsImagesGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F90282A83A8AD00177CDF /* SettingsImagesGroupView.swift */; };
 		227F902B2A83C1C700177CDF /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F902A2A83C1C700177CDF /* JSONDecoder.swift */; };
 		22CC7C532A7EB0BE007C7B6B /* SwipyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC7C522A7EB0BE007C7B6B /* SwipyApp.swift */; };
@@ -32,6 +33,7 @@
 		2238F5D72A7FB31300B350C5 /* ImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoView.swift; sourceTree = "<group>"; };
 		224D42662A8171C900684D69 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		224D42692A8176B700684D69 /* SavedImageId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImageId.swift; sourceTree = "<group>"; };
+		227E0A592A842FF6005BE585 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		227F90282A83A8AD00177CDF /* SettingsImagesGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImagesGroupView.swift; sourceTree = "<group>"; };
 		227F902A2A83C1C700177CDF /* JSONDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		22CC7C4F2A7EB0BE007C7B6B /* Swipy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				22CC7C6C2A7EBF7B007C7B6B /* CustomImageView.swift */,
 				2238F5D52A7FA9DD00B350C5 /* LoadingImagesView.swift */,
 				2238F5D72A7FB31300B350C5 /* ImageInfoView.swift */,
+				227E0A592A842FF6005BE585 /* MessageView.swift */,
 			);
 			path = "Main Page";
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				227F902B2A83C1C700177CDF /* JSONDecoder.swift in Sources */,
 				224D426A2A8176B700684D69 /* SavedImageId.swift in Sources */,
 				22CC7C682A7EB92F007C7B6B /* CreatorRowView.swift in Sources */,
+				227E0A5A2A842FF6005BE585 /* MessageView.swift in Sources */,
 				22CC7C762A7EE1F9007C7B6B /* StorageManager.swift in Sources */,
 				224D42672A8171C900684D69 /* SettingsView.swift in Sources */,
 				22CC7C662A7EB263007C7B6B /* Constants.swift in Sources */,

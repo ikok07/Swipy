@@ -18,13 +18,14 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
                 ScrollView {
-                    SettingsImagesGroupView(isExpanded: $likedExpanded, imagesType: .liked)
+                    SettingsImagesGroupView(isExpanded: $likedExpanded, imagesType: .liked, rows: Int(storageManager.getRows(imageType: .liked)))
                     
-                    SettingsImagesGroupView(isExpanded: $dislikedExpanded, imagesType: .disliked)
+                    SettingsImagesGroupView(isExpanded: $dislikedExpanded, imagesType: .disliked, rows: Int(storageManager.getRows(imageType: .disliked)))
                 }
+                .navigationTitle("Profile")
+                .padding(.top, 25)
                 Spacer()
         }
-        .navigationTitle("Profile")
         .padding()
         .toolbar {
             Button {

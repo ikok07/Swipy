@@ -15,14 +15,29 @@ struct ContentView: View {
     @EnvironmentObject private var storageManager: StorageManager
     
     @State var isPresented: Bool = false
+    @State private var messageType: MessageType = .undefined
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .top) {
+                
+                if messageType == .positive {
+                    MessageView(type: .positive)
+                        .zIndex(2)
+                        .opacity(0.75)
+                        .offset(y: -40)
+                } else if messageType == .negative {
+                    MessageView(type: .negative)
+                        .zIndex(2)
+                        .opacity(0.75)
+                        .offset(y: -40)
+                }
+                
+                
                 VStack(spacing: 10) {
                         ZStack {
                             ForEach(storageManager.photos) { photo in
-                                CustomImageView(photo: photo)
+                                CustomImageView(messageType: $messageType, photo: photo)
                             }
                         }
                     

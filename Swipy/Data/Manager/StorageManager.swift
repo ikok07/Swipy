@@ -93,4 +93,32 @@ class StorageManager: ObservableObject {
     func emptyStorage() {
         savedPhotos = []
     }
+    
+    func getRows(imageType: ImageType) -> Int {
+        
+        var count = 0
+        
+        if imageType == .liked {
+            for photo in savedPhotos {
+                if photo.isLiked! {
+                    count += 1
+                }
+            }
+        } else {
+            for photo in savedPhotos {
+                if !photo.isLiked! {
+                    count += 1
+                }
+            }
+        }
+        
+        if count == 0 {
+            return 0
+        } else if count % 3 == 0 {
+            return count / 3
+        } else {
+            return Int(count / 3) + 1
+        }
+        
+    }
 }
