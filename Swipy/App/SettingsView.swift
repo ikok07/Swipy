@@ -18,9 +18,9 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
                 ScrollView {
-                    SettingsImagesGroupView(isExpanded: $likedExpanded, imagesType: .liked, rows: Int(storageManager.getRows(imageType: .liked)))
+                    SettingsImagesGroupView(isExpanded: $likedExpanded, imagesType: .liked)
                     
-                    SettingsImagesGroupView(isExpanded: $dislikedExpanded, imagesType: .disliked, rows: Int(storageManager.getRows(imageType: .disliked)))
+                    SettingsImagesGroupView(isExpanded: $dislikedExpanded, imagesType: .disliked)
                 }
                 .navigationTitle("Profile")
                 .padding(.top, 25)
