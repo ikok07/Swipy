@@ -23,6 +23,7 @@ struct CustomImageView: View {
     
     
     let photo: Photo
+    let swipable: Bool
     
     
     func presentMessage(type: MessageType) {
@@ -39,9 +40,13 @@ struct CustomImageView: View {
         ZStack {
             Rectangle()
                 .frame(width: (UIScreen.main.bounds.width) * 0.95, height: (UIScreen.main.bounds.height) * 0.70)
+                .foregroundStyle(.gray)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
 
             AsyncImage(url: photo.urls?.url) { image in
-                image.resizable()
+                image
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
             } placeholder: {
                 LoadingImagesView()
             }
@@ -67,42 +72,46 @@ struct CustomImageView: View {
         .gesture(
             DragGesture()
                 .onChanged({ gesture in
-                    offset = gesture.translation
-                    if gesture.translation.width > 0 {
-                        gradientColor = Color(red: 0, green: Double(gesture.translation.width) / 300, blue: 0)
-                        likeOpacity = Double(gesture.translation.width) / 400
-                    } else if gesture.translation.width < 0 {
-                        gradientColor = Color(red: Double(gesture.translation.width) / -300, green: 0, blue: 0)
-                        dislikeOpacity = Double(gesture.translation.width) / -400
+                    if swipable {
+                        offset = gesture.translation
+                        if gesture.translation.width > 0 {
+                            gradientColor = Color(red: 0, green: Double(gesture.translation.width) / 300, blue: 0)
+                            likeOpacity = Double(gesture.translation.width) / 400
+                        } else if gesture.translation.width < 0 {
+                            gradientColor = Color(red: Double(gesture.translation.width) / -300, green: 0, blue: 0)
+                            dislikeOpacity = Double(gesture.translation.width) / -400
+                        }
                     }
                 }) //: OnChanged
                 .onEnded({ gesture in
-                    if Int(gesture.translation.width) > -150 && Int(gesture.translation.width) < 150 {
-                        withAnimation(.spring()) {
-                            offset = CGSize.zero
-                            gradientColor = Color(red: 0, green: 0, blue: 0)
-                            likeOpacity = 0
-                            dislikeOpacity = 0
+                    if swipable {
+                        if Int(gesture.translation.width) > -150 && Int(gesture.translation.width) < 150 {
+                            withAnimation(.spring()) {
+                                offset = CGSize.zero
+                                gradientColor = Color(red: 0, green: 0, blue: 0)
+                                likeOpacity = 0
+                                dislikeOpacity = 0
+                            }
+                        } else if Int(gesture.translation.width) < -150 {
+                            withAnimation(.spring(dampingFraction: 1.0)) {
+                                offset = CGSize(width: gesture.translation.width - 100, height: gesture.translation.height)
+                                opacity = 0
+                                storageManager.changeActivePhoto()
+                                storageManager.savePhoto(photo, isLiked: false)
+                                presentMessage(type: .negative)
+                            }
+                        } else if Int(gesture.translation.width) > 150 {
+                            
+                            withAnimation(.spring(dampingFraction: 1.0)) {
+                                offset = CGSize(width: gesture.translation.width + 100, height: gesture.translation.height)
+                                opacity = 0
+                                storageManager.changeActivePhoto()
+                                storageManager.savePhoto(photo, isLiked: true)
+                                presentMessage(type: .positive)
+                            }
                         }
-                    } else if Int(gesture.translation.width) < -150 {
-                        withAnimation(.spring(dampingFraction: 1.0)) {
-                            offset = CGSize(width: gesture.translation.width - 100, height: gesture.translation.height)
-                            opacity = 0
-                            storageManager.changeActivePhoto()
-                            storageManager.savePhoto(photo, isLiked: false)
-                            presentMessage(type: .negative)
-                        }
-                    } else if Int(gesture.translation.width) > 150 {
-                        
-                        withAnimation(.spring(dampingFraction: 1.0)) {
-                            offset = CGSize(width: gesture.translation.width + 100, height: gesture.translation.height)
-                            opacity = 0
-                            storageManager.changeActivePhoto()
-                            storageManager.savePhoto(photo, isLiked: true)
-                            presentMessage(type: .positive)
-                        }
+                        feedback.impactOccurred()
                     }
-                    feedback.impactOccurred()
                 }) //: OnEnded
         ) //: Gesture
     }
@@ -111,7 +120,7 @@ struct CustomImageView: View {
 struct CustomImageView_Previews: PreviewProvider {
 
     static var previews: some View {
-        CustomImageView(messageType: .constant(.positive), photo: K.samplePhoto)
+        CustomImageView(messageType: .constant(.positive), photo: K.samplePhoto, swipable: true)
             .padding(140)
     }
 }

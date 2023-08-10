@@ -10,7 +10,7 @@ import SwiftUI
 
 class ApiManager {
     
-    let randomImageUrl: URL = URL(string: "https://api.unsplash.com/photos/random?client_id=e4m2bxt9kEx6jttYcyfepms5FwrhD-vO4D5QKAQbN7g&query=nature&w=530&h=800&count=10")!
+    let randomImageUrl: URL = URL(string: "https://api.unsplash.com/photos/random?client_id=aR1FYJHEFV5TiJ1phUlYcQO1ptWt7-54N-ptFwog1jU&query=nature&w=530&h=800&count=10")!
     
     func decodeRandomImageData(completion: @escaping ([Photo]?) -> Void) {
         let session = URLSession(configuration: .default)

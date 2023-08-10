@@ -15,7 +15,12 @@ class StorageManager: ObservableObject {
     
     @Published var photos: [Photo] = []
     @Published var activePhoto: Photo? = nil
-    @Published var savedPhotos: [Photo] = []
+    @Published var savedLikedPhotos: [Photo] = []
+    @Published var savedDislikedPhotos: [Photo] = []
+    
+    @Published var activeSelectedPhoto: Photo? = nil
+    @Published var selectedPhotoPresented: Bool = false
+    
     private var standbyPhotos: [Photo] = []
     
     var activePhotoIndex: Int = 0
@@ -23,12 +28,12 @@ class StorageManager: ObservableObject {
     func loadImages(isFirstImage: Bool = false, isStandby: Bool = false) {
         apiManager.getImages { photos in
             if let safePhotos = photos {
-                DispatchQueue.main.async {
-                    self.photos.insert(contentsOf: safePhotos, at: 0)
-                    if isFirstImage {
-                        self.activePhoto = photos?[self.activePhotoIndex]
-                    } else if isStandby {
-                        self.standbyPhotos = safePhotos
+                    DispatchQueue.main.async {
+                        self.photos.append(contentsOf: safePhotos)
+                        if isFirstImage {
+                            self.activePhoto = photos?[self.activePhotoIndex]
+                        } else if isStandby {
+                            self.standbyPhotos = safePhotos
                     }
                 }
                 print("Images loaded")
@@ -80,45 +85,30 @@ class StorageManager: ObservableObject {
             
             Task {
                 if var safePhoto = await apiManager.decodeSpecificImageData(url: url) {
-                        DispatchQueue.main.async {
-                            safePhoto.isLiked = image.liked
-                            self.savedPhotos.append(safePhoto)
+                    DispatchQueue.main.async {
+                        safePhoto.isLiked = image.liked
+                        
+                        if safePhoto.isLiked! {
+                            self.savedLikedPhotos.append(safePhoto)
+                        } else {
+                            self.savedDislikedPhotos.append(safePhoto)
                         }
+                    }
                 }
             }
-            print(savedPhotos.count)
         }
     }
     
     func emptyStorage() {
-        savedPhotos = []
+        savedLikedPhotos = []
+        savedDislikedPhotos = []
     }
     
-    func getRows(imageType: ImageType) -> Int {
-        
-        var count = 0
-        
-        if imageType == .liked {
-            for photo in savedPhotos {
-                if photo.isLiked! {
-                    count += 1
-                }
-            }
-        } else {
-            for photo in savedPhotos {
-                if !photo.isLiked! {
-                    count += 1
-                }
-            }
+    
+    func toggleImageDetails(image: Photo? = nil) {
+        if let safeImage = image {
+            activeSelectedPhoto = image
         }
-        
-        if count == 0 {
-            return 0
-        } else if count % 3 == 0 {
-            return count / 3
-        } else {
-            return Int(count / 3) + 1
-        }
-        
+        selectedPhotoPresented.toggle()
     }
 }

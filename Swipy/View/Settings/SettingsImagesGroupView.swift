@@ -15,47 +15,31 @@ enum ImageType: CaseIterable {
 struct SettingsImagesGroupView: View {
     
     @EnvironmentObject private var storageManager: StorageManager
-    
-    @State var latestIndex: Int = 0
     @Binding var isExpanded: Bool
-    let imagesType: ImageType
-    let rows: Int
     
-//    var columns: Int
+    let imagesType: ImageType
     
     var body: some View {
         ZStack {
             GroupBox {
                 DisclosureGroup(isExpanded: $isExpanded) {
-                    Grid (alignment: .center) {
-//                        ForEach(0..<9) { image in
-//                            AsyncImage(url: image.urls?.url) { image in
-//                                image
-//                                    .resizable()
-//                                    .scaledToFit()
-//                            } placeholder: {
-//                                Text("test")
-//                            }
-//                        }
-                        
-                        ForEach(0..<rows, id: \.self) { _ in
-                            GridRow {
-                                ForEach(0..<storageManager.savedPhotos.count, id: \.self) { i in
-                                    let photo = storageManager.savedPhotos[i]
-                                    if imagesType == .liked && photo.isLiked! && i <= latestIndex {
-                                        AsyncImage(url: photo.urls?.url) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFit()
-                                        } placeholder: {
-                                            Text("test")
+                    LazyVGrid(columns: K.gridLayout, content: {
+                        ForEach(imagesType == .liked ? storageManager.savedLikedPhotos : storageManager.savedDislikedPhotos) { photo in
+                                AsyncImage(url: photo.urls?.url) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                        .onTapGesture {
+                                            withAnimation(.linear) {
+                                                storageManager.toggleImageDetails(image: photo)
+                                            }
                                         }
-        
-                                    }
+                                } placeholder: {
+                                    Text("test")
                                 }
-                            }
                         }
-                    }
+                    })
                     .padding(.top, 20)
                 } label: {
                     Group {
@@ -66,7 +50,6 @@ struct SettingsImagesGroupView: View {
                         Text(imagesType == .liked ? "Liked Photos" : "Disliked Photos")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(.black)
                     }
                 }
                 .tint(.black)
@@ -76,7 +59,7 @@ struct SettingsImagesGroupView: View {
 }
 
 #Preview {
-    SettingsImagesGroupView(isExpanded: .constant(true), imagesType: .disliked, rows: 3)
+    SettingsImagesGroupView(isExpanded: .constant(true), imagesType: .disliked)
         .previewLayout(.sizeThatFits)
         .padding()
         .environmentObject(StorageManager())

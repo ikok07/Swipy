@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		222B58302A852DD9008AD8AE /* SettingsImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B582F2A852DD9008AD8AE /* SettingsImageDetailView.swift */; };
+		222B58322A8531BD008AD8AE /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B58312A8531BD008AD8AE /* HomePageView.swift */; };
 		2238F5D62A7FA9DD00B350C5 /* LoadingImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2238F5D52A7FA9DD00B350C5 /* LoadingImagesView.swift */; };
 		2238F5D82A7FB31300B350C5 /* ImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2238F5D72A7FB31300B350C5 /* ImageInfoView.swift */; };
 		224D425C2A81698800684D69 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 224D425B2A81698800684D69 /* Realm */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		222B582F2A852DD9008AD8AE /* SettingsImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImageDetailView.swift; sourceTree = "<group>"; };
+		222B58312A8531BD008AD8AE /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		2238F5D52A7FA9DD00B350C5 /* LoadingImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImagesView.swift; sourceTree = "<group>"; };
 		2238F5D72A7FB31300B350C5 /* ImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoView.swift; sourceTree = "<group>"; };
 		224D42662A8171C900684D69 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				227F90282A83A8AD00177CDF /* SettingsImagesGroupView.swift */,
+				222B582F2A852DD9008AD8AE /* SettingsImageDetailView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			children = (
 				22CC7C542A7EB0BE007C7B6B /* ContentView.swift */,
 				224D42662A8171C900684D69 /* SettingsView.swift */,
+				222B58312A8531BD008AD8AE /* HomePageView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -266,10 +272,12 @@
 				2238F5D62A7FA9DD00B350C5 /* LoadingImagesView.swift in Sources */,
 				22CC7C532A7EB0BE007C7B6B /* SwipyApp.swift in Sources */,
 				227F902B2A83C1C700177CDF /* JSONDecoder.swift in Sources */,
+				222B58322A8531BD008AD8AE /* HomePageView.swift in Sources */,
 				224D426A2A8176B700684D69 /* SavedImageId.swift in Sources */,
 				22CC7C682A7EB92F007C7B6B /* CreatorRowView.swift in Sources */,
 				227E0A5A2A842FF6005BE585 /* MessageView.swift in Sources */,
 				22CC7C762A7EE1F9007C7B6B /* StorageManager.swift in Sources */,
+				222B58302A852DD9008AD8AE /* SettingsImageDetailView.swift in Sources */,
 				224D42672A8171C900684D69 /* SettingsView.swift in Sources */,
 				22CC7C662A7EB263007C7B6B /* Constants.swift in Sources */,
 				227F90292A83A8AD00177CDF /* SettingsImagesGroupView.swift in Sources */,

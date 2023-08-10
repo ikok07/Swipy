@@ -14,8 +14,11 @@ struct SwipyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(storageManager)
+                ContentView()
+                    .environmentObject(storageManager)
+                    .tabItem {
+                        Image(systemName: "photo")
+                    }
         }
     }
 }
