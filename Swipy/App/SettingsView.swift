@@ -17,23 +17,27 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
+            if !storageManager.selectedPhotoPresented {
                 ScrollView {
                     SettingsImagesGroupView(isExpanded: $likedExpanded, imagesType: .liked)
                     
                     SettingsImagesGroupView(isExpanded: $dislikedExpanded, imagesType: .disliked)
                 }
-                .navigationTitle("Profile")
+//                .navigationTitle("Profile")
+//                .navigationBarTitleDisplayMode(.inline)
                 .padding(.top, 25)
                 Spacer()
-        }
-        .padding()
-        .toolbar {
-            Button {
-                storageManager.emptyStorage()
-            } label: {
-                Text("Close")
+            } else {
+                SettingsImageDetailView(photo: storageManager.activeSelectedPhoto ?? K.samplePhoto)
             }
         }
+        .padding()
+        .onAppear(perform: {
+            storageManager.loadPhotos()
+        })
+        .onDisappear(perform: {
+            storageManager.emptyStorage()
+        })
     }
 }
 

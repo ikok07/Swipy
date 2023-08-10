@@ -17,6 +17,10 @@ class StorageManager: ObservableObject {
     @Published var activePhoto: Photo? = nil
     @Published var savedLikedPhotos: [Photo] = []
     @Published var savedDislikedPhotos: [Photo] = []
+    
+    @Published var activeSelectedPhoto: Photo? = nil
+    @Published var selectedPhotoPresented: Bool = false
+    
     private var standbyPhotos: [Photo] = []
     
     var activePhotoIndex: Int = 0
@@ -77,7 +81,7 @@ class StorageManager: ObservableObject {
         let photos: [SavedImage] = Array(realm.objects(SavedImage.self))
         
         for image in photos {
-            let url = URL(string: "https://api.unsplash.com/photos/\(image.id)?client_id=e4m2bxt9kEx6jttYcyfepms5FwrhD-vO4D5QKAQbN7g&query=nature&w=530&h=800&count=20213")!
+            let url = URL(string: "https://api.unsplash.com/photos/\(image.id)?client_id=aR1FYJHEFV5TiJ1phUlYcQO1ptWt7-54N-ptFwog1jU&query=nature&w=530&h=800&count=20213")!
             
             Task {
                 if var safePhoto = await apiManager.decodeSpecificImageData(url: url) {
@@ -98,5 +102,13 @@ class StorageManager: ObservableObject {
     func emptyStorage() {
         savedLikedPhotos = []
         savedDislikedPhotos = []
+    }
+    
+    
+    func toggleImageDetails(image: Photo? = nil) {
+        if let safeImage = image {
+            activeSelectedPhoto = image
+        }
+        selectedPhotoPresented.toggle()
     }
 }

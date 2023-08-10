@@ -15,12 +15,9 @@ enum ImageType: CaseIterable {
 struct SettingsImagesGroupView: View {
     
     @EnvironmentObject private var storageManager: StorageManager
-    
-    @State var passedIndexes: [Int] = []
     @Binding var isExpanded: Bool
-    let imagesType: ImageType
     
-//    var columns: Int
+    let imagesType: ImageType
     
     var body: some View {
         ZStack {
@@ -28,14 +25,19 @@ struct SettingsImagesGroupView: View {
                 DisclosureGroup(isExpanded: $isExpanded) {
                     LazyVGrid(columns: K.gridLayout, content: {
                         ForEach(imagesType == .liked ? storageManager.savedLikedPhotos : storageManager.savedDislikedPhotos) { photo in
-                            AsyncImage(url: photo.urls?.url) { photo in
-                                photo
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                            } placeholder: {
-                                Text("test")
-                            }
+                                AsyncImage(url: photo.urls?.url) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                        .onTapGesture {
+                                            withAnimation(.linear) {
+                                                storageManager.toggleImageDetails(image: photo)
+                                            }
+                                        }
+                                } placeholder: {
+                                    Text("test")
+                                }
                         }
                     })
                     .padding(.top, 20)
@@ -48,7 +50,6 @@ struct SettingsImagesGroupView: View {
                         Text(imagesType == .liked ? "Liked Photos" : "Disliked Photos")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(.black)
                     }
                 }
                 .tint(.black)
